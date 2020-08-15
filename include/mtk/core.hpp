@@ -10,6 +10,7 @@
 #include <mtk/core/container_traits.hpp>
 #include <mtk/core/guarded_ptr.hpp>
 #include <mtk/core/iterator_traits.hpp>
+#include <mtk/core/math.hpp>
 #include <mtk/core/preprocessor.hpp>
 #include <mtk/core/scope_guard.hpp>
 #include <mtk/core/type_traits.hpp>
@@ -19,3 +20,14 @@
 //! within this namespace.
 namespace mtk {
 } // namespace mtk
+
+//! @mainpage
+//! The core module of mtklib.
+//!
+//! Take a look at the configuration macros:
+//! - \ref MTK_DEBUG
+//! - \ref MTK_NO_LIB_ASSERTS
+//! - \ref MTK_GLOBAL_TYPES
+//! - \ref MTK_GLOBAL_CASTS
+//!
+//! The headers are listed as modules.
