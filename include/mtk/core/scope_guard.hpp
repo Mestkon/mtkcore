@@ -8,7 +8,7 @@
 
 namespace mtk {
 
-//! @defgroup scope mtk/core/scope.hpp
+//! @defgroup scope mtk/core/scope_guard.hpp
 //! @{
 
 namespace impl_core {
