@@ -6,7 +6,6 @@
 
 #include <mtk/core/allocator_traits.hpp>
 #include <mtk/core/iterator_traits.hpp>
-#include <mtk/core/types.hpp>
 
 namespace mtk {
 
