@@ -115,7 +115,7 @@ ldouble factorial(ldouble);
 //! @pre T must be an integral type.
 //! @pre The given value must be non-negative.
 //!
-//! @note This function has non-template overloads for floating point types.
+//! @note This function has the given non-template overloads for floating point types:
 //!  - float factorial(float);
 //!  - double factorial(double);
 //!  - ldouble factorial(ldouble);
