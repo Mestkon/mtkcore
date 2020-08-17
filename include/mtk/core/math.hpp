@@ -106,6 +106,30 @@ heaviside(T t) noexcept
 	return T((mtk::sgn(t) + T(1)) / T(2));
 }
 
+float factorial(float);
+double factorial(double);
+ldouble factorial(ldouble);
+
+//! @brief Returns the factorial of the given value.
+//!
+//! @pre T must be an integral type.
+//! @pre The given value must be non-negative.
+//!
+//! @note This function has non-template overloads for floating point types.
+//!  - float factorial(float);
+//!  - double factorial(double);
+//!  - ldouble factorial(ldouble);
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_integral_v<T>> = 0
+#endif
+>
+real
+factorial(T t)
+{
+	return factorial(static_cast<real>(t));
+}
+
 //! @brief Returns true if the given value is a power of 2,
 //! else false.
 //!

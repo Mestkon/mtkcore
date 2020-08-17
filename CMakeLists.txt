@@ -30,5 +30,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   include/mtk/core/types.hpp
 
   src/mtk/core/assert.cpp
+  src/mtk/core/math.cpp
   src/mtk/core/scope_guard.cpp
 )
