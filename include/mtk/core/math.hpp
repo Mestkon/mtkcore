@@ -6,6 +6,7 @@
 
 #include <mtk/core/assert.hpp>
 #include <mtk/core/types.hpp>
+#include <mtk/core/type_traits.hpp>
 
 #include <limits>
 
@@ -58,6 +59,8 @@ e = e_value<real>;
 
 } // namespace math
 
+
+
 //! Returns the square of the given value.
 template<class T>
 constexpr
@@ -75,6 +78,42 @@ cubed(T t) noexcept(noexcept(T(t*t*t)))
 {
 	return t*t*t;
 }
+
+
+
+//! @brief Returns the given degree value as radians.
+//!
+//! @pre T must be an arithmetic type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_arithmetic_v<T>> = 0
+#endif
+>
+make_real_t<T>
+to_radians(T degrees) noexcept
+{
+	using U = make_real_t<T>;
+	constexpr U fac = math::pi_value<U> / U(180);
+	return fac*degrees;
+}
+
+//! @brief Returns the given radian value as degrees.
+//!
+//! @pre T must be an arithmetic type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_arithmetic_v<T>> = 0
+#endif
+>
+make_real_t<T>
+to_degrees(T radians) noexcept
+{
+	using U = make_real_t<T>;
+	constexpr U fac = U(180) / math::pi_value<U>;
+	return fac*radians;
+}
+
+
 
 //! @brief Returns the sign of the given value (-1, 0, or 1).
 //!
@@ -106,6 +145,9 @@ heaviside(T t) noexcept
 	return T((mtk::sgn(t) + T(1)) / T(2));
 }
 
+
+
+
 float factorial(float);
 double factorial(double);
 ldouble factorial(ldouble);
@@ -129,6 +171,8 @@ factorial(T t)
 {
 	return factorial(static_cast<real>(t));
 }
+
+
 
 //! @brief Returns true if the given value is a power of 2,
 //! else false.
