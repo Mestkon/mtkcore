@@ -130,7 +130,7 @@ sgn(T t) noexcept
 	return T(int(T() < t) - int(t < T()));
 }
 
-//! @brief Returns the result of the heaviside step function (0, 1/2, 1 formalism).
+//! @brief Returns the result of the heaviside step function of the given value (0, 1/2, 1 formalism).
 //!
 //! @pre T must be an arithmetic type.
 template<class T
