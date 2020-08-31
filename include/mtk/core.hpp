@@ -26,9 +26,9 @@ namespace mtk {
 //! The core module of mtklib.
 //!
 //! Take a look at the configuration macros:
-//! - \ref MTK_DEBUG
-//! - \ref MTK_NO_LIB_ASSERTS
-//! - \ref MTK_GLOBAL_TYPES
-//! - \ref MTK_GLOBAL_CASTS
+//! - @ref MTK_DEBUG
+//! - @ref MTK_NO_LIB_ASSERTS
+//! - @ref MTK_GLOBAL_TYPES
+//! - @ref MTK_GLOBAL_CASTS
 //!
 //! The headers are listed as modules.
