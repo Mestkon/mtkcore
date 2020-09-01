@@ -5,6 +5,7 @@
 //! Contains type traits for containers.
 
 #include <mtk/core/allocator_traits.hpp>
+#include <mtk/core/casts.hpp>
 #include <mtk/core/iterator_traits.hpp>
 
 namespace mtk {
