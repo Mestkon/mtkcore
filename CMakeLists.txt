@@ -20,6 +20,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
   include/mtk/core/assert.hpp
   include/mtk/core/casts.hpp
   include/mtk/core/container_traits.hpp
+  include/mtk/core/flag_operators.hpp
   include/mtk/core/guarded_ptr.hpp
   include/mtk/core/iterator_traits.hpp
   include/mtk/core/math.hpp
