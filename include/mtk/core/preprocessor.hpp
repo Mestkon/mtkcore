@@ -32,7 +32,7 @@ no_op(Args&& ...) noexcept { }
 //!  return 0;
 //! }
 //! @endcode
-#define MTK_IGNORE(...) mtk::impl_global::no_op(__VA_ARGS__)
+#define MTK_IGNORE(...) mtk::impl_core::no_op(__VA_ARGS__)
 
 //! @brief Puts quotation marks on both sides of the given test.
 //!
