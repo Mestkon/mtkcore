@@ -34,3 +34,25 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/mtk/core/math.cpp
     src/mtk/core/scope_guard.cpp
 )
+
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    include/mtk/linalg.hpp
+    include/mtk/linalg_fwd.hpp
+    include/mtk/linalg/matrix.hpp
+    include/mtk/linalg/matrix_base.hpp
+    include/mtk/linalg/matrix_container_interface.hpp
+    include/mtk/linalg/matrix_dynamic.hpp
+    include/mtk/linalg/matrix_fixed.hpp
+    include/mtk/linalg/matrix_interface.hpp
+    include/mtk/linalg/matrix_partial_dynamic.hpp
+    include/mtk/linalg/matrix_square_interface.hpp
+    include/mtk/linalg/vector_interface.hpp
+
+    src/mtk/linalg/matrix_det_and_inv.hpp
+    src/mtk/linalg/matrix_dynamic_vector_reference.hpp
+    src/mtk/linalg/matrix_fixed_vector_reference.hpp
+    src/mtk/linalg/matrix_impl.hpp
+    src/mtk/linalg/matrix_impl_fwd.hpp
+    src/mtk/linalg/matrix_step_iterator.hpp
+    src/mtk/linalg/matrix_vector_iterator.hpp
+)
