@@ -40,7 +40,7 @@ using byte = uchar; //!< Typedef for documentation purposes.
 using real = double; //!< Ideal floating point type.
 
 using size_t = std::size_t; //!< Import into types.
-using ssize_t = std::conditional_t<(sizeof(size_t) <= sizeof(long)), std::make_signed_t<size_t>, long>; //!< Equal to POSIX %ssize_t
+using ssize_t = std::conditional_t<(sizeof(size_t) <= sizeof(long)), std::make_signed_t<size_t>, long>; //!< Equal to POSIX ssize_t
 using ptrdiff_t = std::ptrdiff_t; //!< Import into types.
 
 
