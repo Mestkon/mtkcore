@@ -5,6 +5,11 @@
 //! Contains the guarded_ptr structure.
 
 namespace mtk {
+namespace impl_core {
+[[noreturn]]
+void
+throw_nullptr_exception() noexcept(false);
+} // namespace impl_core
 
 //! @defgroup guarded_ptr mtk/core/guarded_ptr.hpp
 //! @{
@@ -75,7 +80,7 @@ private:
 	_verify() const
 	{
 		if (!m_ptr)
-			throw nullptr_exception();
+			mtk::impl_core::throw_nullptr_exception();
 	}
 
 	T* m_ptr;
