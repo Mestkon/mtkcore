@@ -35,6 +35,7 @@ class guarded_ptr
 {
 public:
 	//! Initializes the pointer to nullptr.
+	constexpr
 	guarded_ptr() noexcept :
 		m_ptr(nullptr)
 	{ }
