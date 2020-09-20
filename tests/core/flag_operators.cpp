@@ -26,7 +26,7 @@ MTK_DEFINE_FLAG_OPERATORS(test_enum)
 template<class T>
 inline constexpr auto is_test_enum = std::is_same_v<T, test_enum>;
 
-TEST_CASE("oring flags together does the correct thing", "[core/flag_operators]")
+TEST_CASE("core/flag_operators: oring flags together does the correct thing", "[core]")
 {
 	auto f1_or_f2 = test_enum::f1 | test_enum::f2;
 	REQUIRE(is_test_enum<decltype(f1_or_f2)>);
@@ -44,7 +44,7 @@ TEST_CASE("oring flags together does the correct thing", "[core/flag_operators]"
 	REQUIRE(f1_or_f3_or_f4 == test_enum::f1_or_f3_or_f4);
 }
 
-TEST_CASE("anding flags together does the correct thing", "[core/flag_operators]")
+TEST_CASE("core/flag_operators: anding flags together does the correct thing", "[core]")
 {
 	auto f1 = test_enum::f1_or_f2 & test_enum::f1;
 	REQUIRE(is_test_enum<decltype(f1)>);
@@ -65,7 +65,7 @@ TEST_CASE("anding flags together does the correct thing", "[core/flag_operators]
 	REQUIRE(f1_or_f4 == test_enum::f1_or_f4);
 }
 
-TEST_CASE("xoring flags together does the correct thing", "[core/flag_operators]")
+TEST_CASE("core/flag_operators: xoring flags together does the correct thing", "[core]")
 {
 	auto f1_or_f2 = test_enum::f1 ^ test_enum::f2;
 	REQUIRE(is_test_enum<decltype(f1_or_f2)>);
@@ -90,7 +90,7 @@ TEST_CASE("xoring flags together does the correct thing", "[core/flag_operators]
 	REQUIRE(f1 == test_enum::f1);
 }
 
-TEST_CASE("noting flags does the correct thing", "[core/flag_operators]")
+TEST_CASE("core/flag_operators: noting flags does the correct thing", "[core]")
 {
 	auto not_f3 = ~test_enum::f3;
 	REQUIRE(is_test_enum<decltype(not_f3)>);

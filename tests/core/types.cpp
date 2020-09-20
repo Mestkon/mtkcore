@@ -38,7 +38,7 @@ test_require(T)
 }
 
 
-TEST_CASE("Fixed width ints correct size", "[core/types]")
+TEST_CASE("core/types: Fixed width ints correct size", "[core]")
 {
 #ifdef MTK_FIXED_WIDTH_INTS
 	REQUIRE(sizeof(int8)*CHAR_BIT == 8u);
@@ -53,7 +53,7 @@ TEST_CASE("Fixed width ints correct size", "[core/types]")
 #endif
 }
 
-TEST_CASE("Require based template selection", "[core/types]")
+TEST_CASE("core/types: Require based template selection", "[core]")
 {
 	REQUIRE(test_require(0) == REQ_INT);
 	REQUIRE(test_require(0.0f) == REQ_FLT);

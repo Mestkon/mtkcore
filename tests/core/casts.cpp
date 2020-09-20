@@ -19,7 +19,7 @@ struct test
 	int overload(float) const { return 0; }
 };
 
-TEST_CASE("byte_cast return type qualifier equal to input", "[core/casts]")
+TEST_CASE("core/casts: byte_cast return type qualifier equal to input", "[core]")
 {
 	int my_int = 0;
 
@@ -56,7 +56,7 @@ TEST_CASE("byte_cast return type qualifier equal to input", "[core/casts]")
 	REQUIRE(std::is_volatile_v<std::remove_pointer_t<decltype(cv_from_byte_cast)>>);
 }
 
-TEST_CASE("byte_cast returns correct values", "[core/casts]")
+TEST_CASE("core/casts: byte_cast returns correct values", "[core]")
 {
 	float* f = new float;
 	REQUIRE(byte_cast(f) == reinterpret_cast<byte*>(f));
@@ -72,7 +72,7 @@ TEST_CASE("byte_cast returns correct values", "[core/casts]")
 	delete s;
 }
 
-TEST_CASE("saturate_cast returns correct values", "[core/casts]")
+TEST_CASE("core/casts: saturate_cast returns correct values", "[core]")
 {
 	int i = 20;
 	REQUIRE(saturate_cast<float>(i) == 20.0f);
@@ -96,7 +96,7 @@ TEST_CASE("saturate_cast returns correct values", "[core/casts]")
 	REQUIRE(saturate_cast<int>(l) == std::numeric_limits<int>::max());
 }
 
-TEST_CASE("narrow_cast returns correct values", "[core/casts]")
+TEST_CASE("core/casts: narrow_cast returns correct values", "[core]")
 {
 	int i = 20;
 	REQUIRE(narrow_cast<float>(i) == static_cast<float>(i));
@@ -105,7 +105,7 @@ TEST_CASE("narrow_cast returns correct values", "[core/casts]")
 	REQUIRE(narrow_cast<uint>(i) == static_cast<uint>(i));
 }
 
-TEST_CASE("overload_cast selects the correct overload", "[core/casts]")
+TEST_CASE("core/casts: overload_cast selects the correct overload", "[core]")
 {
 	auto ptr1 = overload_cast<void()>(&overload);
 	REQUIRE(ptr1 == static_cast<void(*)()>(&overload));
