@@ -139,7 +139,7 @@ public:
 	//! @relates saturated_integer
 	friend constexpr
 	saturated_integer
-	operator--(saturated_integer lhs, int) noexcept
+	operator--(saturated_integer& lhs, int) noexcept
 	{
 		const auto cp = lhs;
 		--lhs;
