@@ -44,24 +44,19 @@ using size = typename std::allocator_traits<T>::size_type;
 
 //! Shorthand for std::allocator_traits::propagate_on_container_copy_assignment.
 template<class T>
-inline constexpr
-auto
-propagate_copy = std::allocator_traits<T>::propagate_on_container_copy_assignment;
+using propagate_on_copy_assign = typename std::allocator_traits<T>::propagate_on_container_copy_assignment;
+
 //! Shorthand for std::allocator_traits::propagate_on_container_move_assignment.
 template<class T>
-inline constexpr
-auto
-propagate_move = std::allocator_traits<T>::propagate_on_container_move_assignment;
+using propagate_on_move_assign = typename std::allocator_traits<T>::propagate_on_container_move_assignment;
+
 //! Shorthand for std::allocator_traits::propagate_on_container_swap.
 template<class T>
-inline constexpr
-auto
-propagate_swap = std::allocator_traits<T>::propagate_on_container_swap;
+using propagate_on_swap = typename std::allocator_traits<T>::propagate_on_container_swap;
+
 //! Shorthand for std::allocator_traits::is_always_equal.
 template<class T>
-inline constexpr
-auto
-is_always_equal = std::allocator_traits<T>::is_always_equal;
+using is_always_equal = typename std::allocator_traits<T>::is_always_equal;
 
 //! Shorthand for std::allocator_traits::rebind_alloc.
 template<class Alloc
