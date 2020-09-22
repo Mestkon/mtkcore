@@ -2,6 +2,8 @@
 
 #include <mtk/core/saturated_integer.hpp>
 
+#include <climits>
+
 using namespace mtk::types;
 
 namespace mtk {
@@ -12,6 +14,19 @@ operator<<(std::ostream& os, saturated_integer<T> t)
 	os << t.value();
 }
 }
+
+#ifdef MTK_FIXED_WIDTH_INTS
+TEST_CASE("core/types: Fixed width saturated ints correct size", "[core]")
+{
+	REQUIRE(sizeof(int8_sat)*CHAR_BIT == 8u);
+	REQUIRE(sizeof(int16_sat)*CHAR_BIT == 16u);
+	REQUIRE(sizeof(int32_sat)*CHAR_BIT == 32u);
+
+	REQUIRE(sizeof(uint8_sat)*CHAR_BIT == 8u);
+	REQUIRE(sizeof(uint16_sat)*CHAR_BIT == 16u);
+	REQUIRE(sizeof(uint32_sat)*CHAR_BIT == 32u);
+}
+#endif
 
 TEST_CASE("core/saturated_integer: all tests", "[core]")
 {
