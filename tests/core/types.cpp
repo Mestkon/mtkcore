@@ -41,15 +41,15 @@ test_require(T)
 
 #if __has_include(<sys/types.h>)
 #include <sys/types.h>
-TEST_CASE("core/types: ssize_t same as POSIX")
+TEST_CASE("core/types: ssize_t same as POSIX", "[core]")
 {
 	REQUIRE((std::is_same_v<mtk::ssize_t, ::ssize_t>));
 }
 #endif
 
+#ifdef MTK_FIXED_WIDTH_INTS
 TEST_CASE("core/types: Fixed width ints correct size", "[core]")
 {
-#ifdef MTK_FIXED_WIDTH_INTS
 	REQUIRE(sizeof(int8)*CHAR_BIT == 8u);
 	REQUIRE(sizeof(int16)*CHAR_BIT == 16u);
 	REQUIRE(sizeof(int32)*CHAR_BIT == 32u);
@@ -59,8 +59,8 @@ TEST_CASE("core/types: Fixed width ints correct size", "[core]")
 	REQUIRE(sizeof(uint16)*CHAR_BIT == 16u);
 	REQUIRE(sizeof(uint32)*CHAR_BIT == 32u);
 	REQUIRE(sizeof(uint64)*CHAR_BIT == 64u);
-#endif
 }
+#endif
 
 TEST_CASE("core/types: Require based template selection", "[core]")
 {
