@@ -28,6 +28,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     core/guarded_ptr.cpp
     core/iterator_traits.cpp
     core/math.cpp
+    core/result.cpp
     core/saturated_integer.cpp
     core/scope_guard.cpp
     core/type_traits.cpp

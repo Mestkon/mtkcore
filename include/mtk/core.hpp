@@ -13,6 +13,7 @@
 #include <mtk/core/iterator_traits.hpp>
 #include <mtk/core/math.hpp>
 #include <mtk/core/preprocessor.hpp>
+#include <mtk/core/result.hpp>
 #include <mtk/core/saturated_integer.hpp>
 #include <mtk/core/scope_guard.hpp>
 #include <mtk/core/type_traits.hpp>
