@@ -8,7 +8,7 @@
 #include <mtk/core/types.hpp>
 
 #include <exception>
-#include <memory>
+#include <optional>
 #include <utility>
 
 namespace mtk {
@@ -39,12 +39,21 @@ template<class T
 	,class Error>
 class result
 {
+	static_assert(std::is_nothrow_default_constructible_v<Error>);
 	static_assert(std::is_copy_constructible_v<Error>);
+	static_assert(std::is_copy_assignable_v<Error>);
+	static_assert(std::is_destructible_v<Error>);
 public:
+	//!Initializes to a default constructed Error.
+	result() noexcept :
+		m_error(),
+		m_value()
+	{ }
+
 	//! Initializes to the given error state.
-	result(Error err) noexcept(std::is_nothrow_copy_constructible_v<Error>) :
+	result(Error err) noexcept :
 		m_error(err),
-		m_engaged(false)
+		m_value()
 	{ }
 
 	//! @brief Initializes to the given value.
@@ -56,34 +65,15 @@ public:
 #endif
 	>
 	result(U&& value) noexcept(std::is_nothrow_constructible_v<T, U>) :
-		m_value(static_cast<T>(std::forward<U>(value))),
-		m_engaged(true)
+		m_error(),
+		m_value(static_cast<T>(std::forward<U>(value)))
 	{ }
-
-	result(const result&) = default;
-
-	result(result&&) = default;
-
-	~result() noexcept
-	{
-		if (m_engaged)
-			m_value.~T();
-		else
-			m_error.~Error();
-	}
-
-	result&
-	operator=(const result&) = default;
-
-	result&
-	operator=(result&&) = default;
-
 
 	//! @brief Returns true if the result contains a value.
 
 	//! Returns false if the result contains an error.
 	explicit
-	operator bool() const noexcept { return m_engaged; }
+	operator bool() const noexcept { return m_value.has_value(); }
 
 	//! Returns bool(*this)
 	bool
@@ -101,11 +91,11 @@ public:
 	//!
 	//! @pre has_value() is true.
 	T*
-	operator->() noexcept { return std::addressof(this->_value()); }
+	operator->() noexcept { MTK_IMPL_LIB_ASSERT(*this); return m_value.operator->(); }
 
 	//! @copydoc operator->()
 	const T*
-	operator->() const noexcept { return std::addressof(this->_value()); }
+	operator->() const noexcept { MTK_IMPL_LIB_ASSERT(*this); return m_value.operator->(); }
 
 	//! @brief Returns a reference to the current value.
 	//!
@@ -166,16 +156,13 @@ public:
 	value_or(U&& default_value) && { return bool(*this) ? std::move(**this) : static_cast<T>(std::forward<U>(default_value)); }
 
 private:
-	T& _value() { MTK_IMPL_LIB_ASSERT(*this); return m_value; }
-	const T& _value() const { MTK_IMPL_LIB_ASSERT(*this); return m_value; }
+	T& _value() { MTK_IMPL_LIB_ASSERT(*this); return *m_value; }
+	const T& _value() const { MTK_IMPL_LIB_ASSERT(*this); return *m_value; }
 	T& _safe_value() { if (!*this) impl_core::throw_bad_result_access(); return this->_value(); }
 	const T& _safe_value() const { if (!*this) impl_core::throw_bad_result_access(); return this->_value(); }
 
-	union {
-		Error m_error;
-		T m_value;
-	};
-	bool m_engaged;
+	Error m_error;
+	std::optional<T> m_value;
 };
 
 //! @}
