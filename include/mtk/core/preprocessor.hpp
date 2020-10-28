@@ -34,10 +34,10 @@ no_op(Args&& ...) noexcept { }
 //! @endcode
 #define MTK_IGNORE(...) mtk::impl_core::no_op(__VA_ARGS__)
 
-//! @brief Puts quotation marks on both sides of the given test.
+//! @brief Puts quotation marks on both sides of the given text.
 //!
 //! @code
-//! MTK_STRINGIFY_TEST(Something); //evaluates to "Something";
+//! MTK_STRINGIFY_TEXT(Something); //evaluates to "Something";
 //! @endcode
 #define MTK_STRINGIFY_TEXT(X) #X
 //! @brief Evaluates the given macro and puts quatation marks
@@ -53,7 +53,7 @@ no_op(Args&& ...) noexcept { }
 //! @endcode
 #define MTK_STRINGIFY(X) MTK_STRINGIFY_TEXT(X)
 
-//! @brief Concatrenates A and B
+//! @brief Concatenates A and B
 //!
 //! @code
 //! MTK_CONCAT_TEXT(Something, Else); //evaluates to SomethingElse
