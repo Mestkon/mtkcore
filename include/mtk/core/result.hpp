@@ -51,8 +51,8 @@ public:
 	{ }
 
 	//! Initializes to the given error state.
-	result(Error err) noexcept :
-		m_error(err),
+	result(Error err) noexcept(std::is_nothrow_move_constructible_v<Error>) :
+		m_error(std::move(err)),
 		m_value()
 	{ }
 
