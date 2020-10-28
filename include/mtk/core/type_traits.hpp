@@ -6,8 +6,6 @@
 
 #include <mtk/core/types.hpp>
 
-#include <utility>
-
 namespace mtk {
 
 //! @defgroup type_traits mtk/core/type_traits.hpp
@@ -123,8 +121,8 @@ template<class T>
 struct make_real_helper<T
 	,std::void_t<void
 		,typename T::value_type
-		,decltype(std::declval<T&>().real())
-		,decltype(std::declval<T&>().imag())
+		,decltype(T().real())
+		,decltype(T().imag())
 	>>
 {
 	using type = typename T::value_type;
