@@ -4,7 +4,7 @@
 //! @file
 //! Contains c++-like casting functions.
 
-#include <mtk/core/types.hpp>
+#include <mtk/core/type_traits.hpp>
 
 #include <limits>
 
@@ -50,18 +50,10 @@ template<class T
 		std::is_void_v<std::remove_cv_t<T>>> = 0
 #endif
 >
-auto*
+copy_cv_t<byte, T>*
 byte_cast(T* t) noexcept
 {
-	using U = std::conditional_t<std::is_const_v<T>,
-		std::conditional_t<std::is_volatile_v<T>,
-			const volatile byte,
-			const byte>,
-		std::conditional_t<std::is_volatile_v<T>,
-			volatile byte,
-			byte>>;
-
-	return reinterpret_cast<U*>(t);
+	return reinterpret_cast<copy_cv_t<byte, T>*>(t);
 }
 
 
