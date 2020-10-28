@@ -12,7 +12,6 @@
 #include <mtk/core/guarded_ptr.hpp>
 #include <mtk/core/iterator_traits.hpp>
 #include <mtk/core/math.hpp>
-#include <mtk/core/os.hpp>
 #include <mtk/core/preprocessor.hpp>
 #include <mtk/core/result.hpp>
 #include <mtk/core/saturated_integer.hpp>
@@ -33,6 +32,5 @@ namespace mtk {
 //! - @ref MTK_NO_LIB_ASSERTS
 //! - @ref MTK_GLOBAL_TYPES
 //! - @ref MTK_GLOBAL_CASTS
-//! - @ref MTK_OS
 //!
 //! The headers are listed as modules.

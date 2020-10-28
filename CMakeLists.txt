@@ -24,7 +24,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     include/mtk/core/guarded_ptr.hpp
     include/mtk/core/iterator_traits.hpp
     include/mtk/core/math.hpp
-    include/mtk/core/os.hpp
     include/mtk/core/preprocessor.hpp
     include/mtk/core/result.hpp
     include/mtk/core/saturated_integer.hpp
