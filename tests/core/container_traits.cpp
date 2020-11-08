@@ -16,7 +16,7 @@ using map = std::map<size_t, char>;
 using vec = std::vector<std::nullptr_t>;
 using not_cont = int;
 
-TEST_CASE("core/container_traits: container_traits has correct typedefs")
+TEST_CASE("core/container_traits: container_traits has correct typedefs", "[core]")
 {
 	using carr_trait = container_traits<c_arr>;
 	REQUIRE((std::is_same_v<typename carr_trait::value_type, int>));
