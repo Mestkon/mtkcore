@@ -8,8 +8,8 @@
 #include <mtk/core/types.hpp>
 
 #include <exception>
-#include <optional>
 #include <utility>
+#include <variant>
 
 namespace mtk {
 namespace impl_core {
@@ -35,6 +35,11 @@ struct bad_result_access :
 //! when not engaged.
 //!
 //! Used to return an error state with the result of the function.
+//!
+//! @pre Error must be nothrow default constructible.
+//! @pre Error must be copy constructible.
+//! @pre Error must be copy assignable.
+//! @pre Error must be destructible.
 template<class T
 	,class Error>
 class result
@@ -46,14 +51,12 @@ class result
 public:
 	//!Initializes to a default constructed Error.
 	result() noexcept :
-		m_error(),
-		m_value()
+		m_var()
 	{ }
 
 	//! Initializes to the given error state.
 	result(Error err) noexcept(std::is_nothrow_move_constructible_v<Error>) :
-		m_error(std::move(err)),
-		m_value()
+		m_var(std::move(err))
 	{ }
 
 	//! @brief Initializes to the given value.
@@ -65,15 +68,14 @@ public:
 #endif
 	>
 	result(U&& value) noexcept(std::is_nothrow_constructible_v<T, U>) :
-		m_error(),
-		m_value(static_cast<T>(std::forward<U>(value)))
+		m_var(static_cast<T>(std::forward<U>(value)))
 	{ }
 
 	//! @brief Returns true if the result contains a value.
 
 	//! Returns false if the result contains an error.
 	explicit
-	operator bool() const noexcept { return m_value.has_value(); }
+	operator bool() const noexcept { return (m_var.index() == 1); }
 
 	//! Returns bool(*this)
 	bool
@@ -83,7 +85,7 @@ public:
 	//!
 	//! @pre has_value() is false.
 	Error
-	error() const { MTK_IMPL_LIB_ASSERT(!*this); return m_error; }
+	error() const { MTK_IMPL_LIB_ASSERT(!*this); return std::get<0>(m_var); }
 
 
 
@@ -91,11 +93,11 @@ public:
 	//!
 	//! @pre has_value() is true.
 	T*
-	operator->() noexcept { MTK_IMPL_LIB_ASSERT(*this); return m_value.operator->(); }
+	operator->() noexcept { MTK_IMPL_LIB_ASSERT(*this); return std::get_if<1>(&m_var); }
 
 	//! @copydoc operator->()
 	const T*
-	operator->() const noexcept { MTK_IMPL_LIB_ASSERT(*this); return m_value.operator->(); }
+	operator->() const noexcept { MTK_IMPL_LIB_ASSERT(*this); return std::get_if<1>(&m_var); }
 
 	//! @brief Returns a reference to the current value.
 	//!
@@ -156,13 +158,12 @@ public:
 	value_or(U&& default_value) && { return bool(*this) ? std::move(**this) : static_cast<T>(std::forward<U>(default_value)); }
 
 private:
-	T& _value() { MTK_IMPL_LIB_ASSERT(*this); return *m_value; }
-	const T& _value() const { MTK_IMPL_LIB_ASSERT(*this); return *m_value; }
+	T& _value() { MTK_IMPL_LIB_ASSERT(*this); return std::get<1>(m_var); }
+	const T& _value() const { MTK_IMPL_LIB_ASSERT(*this); return std::get<1>(m_var); }
 	T& _safe_value() { if (!*this) impl_core::throw_bad_result_access(); return this->_value(); }
 	const T& _safe_value() const { if (!*this) impl_core::throw_bad_result_access(); return this->_value(); }
 
-	Error m_error;
-	std::optional<T> m_value;
+	std::variant<Error, T> m_var;
 };
 
 //! @}
