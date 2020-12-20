@@ -45,6 +45,58 @@ inline constexpr
 T
 e = static_cast<T>(2.718281828459045235360287471352662498L);
 
+//! @brief Approximation of the natural logarithm of 2
+//! for the given type T.
+//!
+//! @pre T must be an arithmetic type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_arithmetic_v<T>> = 0
+#endif
+>
+inline constexpr
+T
+ln_2 = static_cast<T>(0.693147180559945309417232121458176568L);
+
+//! @brief Approximation of the natural logaritm of 10
+//! for the given type T.
+//!
+//! @pre T must be an arithmetic type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_arithmetic_v<T>> = 0
+#endif
+>
+inline constexpr
+T
+ln_10 = static_cast<T>(2.302585092994045684017991454684364208L);
+
+//! @brief Approximation of the square root of 2
+//! for the given type T.
+//!
+//! @pre T must be an arithmetic type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_arithmetic_v<T>> = 0
+#endif
+>
+inline constexpr
+T
+sqrt_2 = static_cast<T>(1.414213562373095048801688724209698079L);
+
+//! @brief Approximation of the square root of π
+//! for the given type T.
+//!
+//! @pre T must be an arithmetic type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<std::is_arithmetic_v<T>> = 0
+#endif
+>
+inline constexpr
+T
+sqrt_pi = static_cast<T>(2.0L / 1.128379167095512573896158903121545172L);
+
 //! @}
 
 } // namespace math
