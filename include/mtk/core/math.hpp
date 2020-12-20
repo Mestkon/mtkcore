@@ -189,9 +189,19 @@ heaviside(T t) noexcept
 
 
 
-
+//! @brief Returns the factorial of the given value.
+//!
+//! @pre The given value must be non-negative.
 float factorial(float);
+
+//! @brief Returns the factorial of the given value.
+//!
+//! @pre The given value must be non-negative.
 double factorial(double);
+
+//! @brief Returns the factorial of the given value.
+//!
+//! @pre The given value must be non-negative.
 ldouble factorial(ldouble);
 
 //! @brief Returns the factorial of the given value.
