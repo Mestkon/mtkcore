@@ -5,6 +5,7 @@
 #include <cmath>
 
 namespace mtk {
+namespace core_math {
 namespace {
 
 template<class T>
@@ -16,23 +17,24 @@ _factorial(T t) noexcept
 }
 
 } // namespace
+} // namespace core_math
 
 float
 factorial(float t)
 {
-	return _factorial(t);
+	return core_math::_factorial(t);
 }
 
 double
 factorial(double t)
 {
-	return _factorial(t);
+	return core_math::_factorial(t);
 }
 
 ldouble
 factorial(ldouble t)
 {
-	return _factorial(t);
+	return core_math::_factorial(t);
 }
 
 } // namespace mtk
