@@ -5,7 +5,7 @@ project (mtkcore LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(${CMAKE_PROJECT_NAME} STATIC "")
+add_library(${CMAKE_PROJECT_NAME} STATIC src/mtk/core.cpp)
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE include)
 
@@ -31,11 +31,12 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     include/mtk/core/type_traits.hpp
     include/mtk/core/types.hpp
 
-    src/mtk/core/assert.cpp
-    src/mtk/core/guarded_ptr.cpp
-    src/mtk/core/math.cpp
-    src/mtk/core/result.cpp
-    src/mtk/core/scope_guard.cpp
+    include/mtk/core.inl
+    src/mtk/core/assert.inl
+    src/mtk/core/guarded_ptr.inl
+    src/mtk/core/math.inl
+    src/mtk/core/result.inl
+    src/mtk/core/scope_guard.inl
 )
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
