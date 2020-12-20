@@ -825,9 +825,9 @@ constexpr
 auto
 operator*(const matrix_interface<Lhs>& lhs, const matrix_interface<Rhs>& rhs)
 {
-	using mat1 = typename matrix_traits<Lhs>::template rebind<typename Lhs::value_type, Lhs::row_dimension, Lhs::column_dimension, Lhs::options | Rhs::options>;
-	using mat2 = typename matrix_traits<Rhs>::template rebind<typename Rhs::value_type, Rhs::row_dimension, Rhs::column_dimension, Lhs::options | Rhs::options>;
-	using mat_mtk = matrix<typename Lhs::value_type, Lhs::row_dimension, Lhs::column_dimension, Lhs::options | Rhs::options>;
+	using mat1 = typename matrix_traits<Lhs>::template rebind<typename Lhs::value_type, Lhs::row_dimension, Rhs::column_dimension, Lhs::options | Rhs::options>;
+	using mat2 = typename matrix_traits<Rhs>::template rebind<typename Rhs::value_type, Lhs::row_dimension, Rhs::column_dimension, Lhs::options | Rhs::options>;
+	using mat_mtk = matrix<typename Lhs::value_type, Lhs::row_dimension, Rhs::column_dimension, Lhs::options | Rhs::options>;
 	using mat = std::conditional_t<std::is_same_v<mat1, mat_mtk>, mat2, mat1>;
 
 	const auto create_mat = [](size_t rows, size_t cols) {
