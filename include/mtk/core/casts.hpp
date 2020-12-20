@@ -4,6 +4,7 @@
 //! @file
 //! Contains c++-like casting functions.
 
+#include <mtk/core/assert.hpp>
 #include <mtk/core/type_traits.hpp>
 
 #include <limits>
