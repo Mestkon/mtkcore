@@ -9,5 +9,13 @@ throw_nullptr_exception() noexcept(false)
 	throw nullptr_exception();
 }
 
-} // namespace impl_core
+}
+
+const char*
+nullptr_exception::what() const noexcept
+{
+	return "nullptr exception";
+}
+
+// namespace impl_core
 } // namespace mtk

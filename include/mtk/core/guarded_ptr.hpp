@@ -1,6 +1,8 @@
 #ifndef MTK_CORE_GUARDED_PTR_HPP
 #define MTK_CORE_GUARDED_PTR_HPP
 
+#include <exception>
+
 //! @file
 //! Contains the guarded_ptr structure.
 
@@ -16,12 +18,16 @@ throw_nullptr_exception() noexcept(false);
 
 //! @brief Thrown by guarded_ptr when accessing a nullptr.
 //!
-//! This does not inherit from std::exception as it should be inconvenient to
-//! catch because the user should put in explicit guards before dereferencing
-//! instead of relying on exceptions.
+//! One should strongly consider using explicit guards and not relying on this,
+//! and only use this for debugging purposes.
 //!
 //! @sa guarded_ptr
-struct nullptr_exception { };
+struct nullptr_exception :
+	public std::exception
+{
+public:
+	const char* what() const noexcept override;
+};
 
 //! @brief A light-weight non-owning pointer replacement
 //! which throws nullptr_exception if nullptr is dereferenced.
