@@ -47,7 +47,7 @@ TEST_CASE("core/math: cubed returns the cube of the input", "[core]")
 TEST_CASE("core/math: to_radians/to_degrees returns the converted value", "[core]")
 {
 	constexpr real rad_zero(0.0);
-	constexpr real rad_half(math::pi);
+	constexpr real rad_half(math::pi<real>);
 	constexpr real rad_one_fourths = rad_half / 2.0;
 	constexpr real rad_three_fourths = rad_half + rad_one_fourths;
 	constexpr real rad_five_eighths = rad_half + rad_one_fourths / 2.0;

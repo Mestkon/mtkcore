@@ -31,7 +31,7 @@ template<class T
 >
 inline constexpr
 T
-pi_value = static_cast<T>(3.141592653589793238462643383279502884L);
+pi = static_cast<T>(3.141592653589793238462643383279502884L);
 
 //! @brief Approximation of Euler's constant for the given type T.
 //!
@@ -43,17 +43,7 @@ template<class T
 >
 inline constexpr
 T
-e_value = static_cast<T>(2.718281828459045235360287471352662498L);
-
-//! Equivalent to mtk::math::pi_value<mtk::real>
-inline constexpr
-real
-pi = pi_value<real>;
-
-//! Equivalent to mtk::math::e_value<mtk::real>
-inline constexpr
-real
-e = e_value<real>;
+e = static_cast<T>(2.718281828459045235360287471352662498L);
 
 //! @}
 
@@ -93,7 +83,7 @@ make_real_t<T>
 to_radians(T degrees) noexcept
 {
 	using U = make_real_t<T>;
-	constexpr U fac = math::pi_value<U> / U(180);
+	constexpr U fac = math::pi<U> / U(180);
 	return fac*degrees;
 }
 
@@ -109,7 +99,7 @@ make_real_t<T>
 to_degrees(T radians) noexcept
 {
 	using U = make_real_t<T>;
-	constexpr U fac = U(180) / math::pi_value<U>;
+	constexpr U fac = U(180) / math::pi<U>;
 	return fac*radians;
 }
 
