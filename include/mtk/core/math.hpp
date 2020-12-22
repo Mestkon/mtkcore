@@ -123,40 +123,6 @@ cubed(T t) noexcept(noexcept(T(t*t*t)))
 
 
 
-//! @brief Returns the given degree value as radians.
-//!
-//! @pre T must be an arithmetic type.
-template<class T
-#ifndef MTK_DOXYGEN
-	,require<std::is_arithmetic_v<T>> = 0
-#endif
->
-make_real_t<T>
-to_radians(T degrees) noexcept
-{
-	using U = make_real_t<T>;
-	constexpr U fac = math::pi<U> / U(180);
-	return fac*degrees;
-}
-
-//! @brief Returns the given radian value as degrees.
-//!
-//! @pre T must be an arithmetic type.
-template<class T
-#ifndef MTK_DOXYGEN
-	,require<std::is_arithmetic_v<T>> = 0
-#endif
->
-make_real_t<T>
-to_degrees(T radians) noexcept
-{
-	using U = make_real_t<T>;
-	constexpr U fac = U(180) / math::pi<U>;
-	return fac*radians;
-}
-
-
-
 //! @brief Returns the sign of the given value (-1, 0, or 1).
 //!
 //! @pre T must be an arithmetic type.

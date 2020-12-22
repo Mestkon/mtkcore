@@ -16,6 +16,7 @@
 #include <mtk/core/result.hpp>
 #include <mtk/core/saturated_integer.hpp>
 #include <mtk/core/scope_guard.hpp>
+#include <mtk/core/trigonometry.hpp>
 #include <mtk/core/type_traits.hpp>
 #include <mtk/core/types.hpp>
 
