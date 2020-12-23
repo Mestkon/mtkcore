@@ -44,36 +44,6 @@ TEST_CASE("core/math: cubed returns the cube of the input", "[core]")
 	}
 }
 
-TEST_CASE("core/math: to_radians/to_degrees returns the converted value", "[core]")
-{
-	constexpr real rad_zero(0.0);
-	constexpr real rad_half(math::pi<real>);
-	constexpr real rad_one_fourths = rad_half / 2.0;
-	constexpr real rad_three_fourths = rad_half + rad_one_fourths;
-	constexpr real rad_five_eighths = rad_half + rad_one_fourths / 2.0;
-
-	constexpr real deg_zero(0.0);
-	constexpr real deg_half(180.0);
-	constexpr real deg_one_fourths = deg_half / 2.0;
-	constexpr real deg_three_fourths = deg_half + deg_one_fourths;
-	constexpr real deg_five_eighths = deg_half + deg_one_fourths / 2.0;
-
-	REQUIRE(rad_zero == Approx(to_radians(deg_zero)));
-	REQUIRE(to_degrees(rad_zero) == Approx(deg_zero));
-
-	REQUIRE(rad_half == Approx(to_radians(deg_half)));
-	REQUIRE(to_degrees(rad_half) == Approx(deg_half));
-
-	REQUIRE(rad_one_fourths == Approx(to_radians(deg_one_fourths)));
-	REQUIRE(to_degrees(rad_one_fourths) == Approx(deg_one_fourths));
-
-	REQUIRE(rad_three_fourths == Approx(to_radians(deg_three_fourths)));
-	REQUIRE(to_degrees(rad_three_fourths) == Approx(deg_three_fourths));
-
-	REQUIRE(rad_five_eighths == Approx(to_radians(deg_five_eighths)));
-	REQUIRE(to_degrees(rad_five_eighths) == Approx(deg_five_eighths));
-}
-
 TEST_CASE("core/math: sgn returns the sign of the input", "[core]")
 {
 	REQUIRE(sgn(27) == 1);
