@@ -256,6 +256,8 @@ using copy_sign_t = typename copy_sign<T, Sign>::type;
 //! @brief Contains the member typedef type equal to T if
 //! T is a floating point type, else mtk::real if T is an integral
 //! type, else U if T is std::complex<U>.
+//!
+//! @pre T must be an arithmetic type or an std::complex type.
 template<class T>
 struct make_real
 #ifndef MTK_DOXYGEN
