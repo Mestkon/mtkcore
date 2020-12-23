@@ -191,69 +191,6 @@ operator/(const angle_base<T, D>& lhs, typename D::value_type rhs) noexcept
 
 
 
-//! @brief Class representing angle in degrees.
-//!
-//! @pre T must be a floating point type.
-//!
-//! Supports the operators:
-//!	 - bool operator==(degrees, degrees)
-//!  - bool operator!=(degrees, degrees)
-//!  - bool operator<(degrees, degrees)
-//!  - bool operator>(degrees, degrees)
-//!  - bool operator<=(degrees, degrees)
-//!  - bool operator>=(degrees, degrees)
-//!  - degrees operator+(degrees)
-//!  - degrees operator-(degrees)
-//!  - degrees& operator+=(degrees&, degrees)
-//!  - degrees& operator-=(degrees&, degrees)
-//!  - degrees operator+(degrees, degrees)
-//!  - degrees operator-(degrees, degrees)
-//!  - degrees& operator*=(degrees&, T)
-//!  - degrees& operator/=(degrees&, T)
-//!  - degrees operator*(degrees, T)
-//!  - degrees operator*(T, degrees)
-//!  - degrees operator/(degrees, T)
-template<class T>
-class degrees
-#ifndef MTK_DOXYGEN
-	: public impl_core::angle_base<T, degrees<T>>
-#endif
-{
-	static_assert(std::is_floating_point_v<T>);
-public:
-	//! Typedef.
-	using value_type = T;
-
-	//! Initializes to zero.
-	constexpr
-	degrees() noexcept :
-		m_value()
-	{ }
-
-	//! Initializes to value degrees.
-	explicit constexpr
-	degrees(T value) noexcept :
-		m_value(value)
-	{ }
-
-	//! Returns the current value.
-	explicit constexpr
-	operator T() const noexcept { return m_value; }
-
-	//! Returns the current value.
-	constexpr
-	const T&
-	value() const noexcept { return m_value; }
-
-	//! Returns the current value.
-	constexpr
-	T&
-	value() noexcept { return m_value; }
-
-private:
-	T m_value;
-};
-
 //! @brief Class representing angle in radians.
 //!
 //! @pre T must be a floating point type.
@@ -317,15 +254,78 @@ private:
 	T m_value;
 };
 
-//! @brief Deduction guide.
-//! @relates degrees
+//! @brief Class representing angle in degrees.
+//!
+//! @pre T must be a floating point type.
+//!
+//! Supports the operators:
+//!	 - bool operator==(degrees, degrees)
+//!  - bool operator!=(degrees, degrees)
+//!  - bool operator<(degrees, degrees)
+//!  - bool operator>(degrees, degrees)
+//!  - bool operator<=(degrees, degrees)
+//!  - bool operator>=(degrees, degrees)
+//!  - degrees operator+(degrees)
+//!  - degrees operator-(degrees)
+//!  - degrees& operator+=(degrees&, degrees)
+//!  - degrees& operator-=(degrees&, degrees)
+//!  - degrees operator+(degrees, degrees)
+//!  - degrees operator-(degrees, degrees)
+//!  - degrees& operator*=(degrees&, T)
+//!  - degrees& operator/=(degrees&, T)
+//!  - degrees operator*(degrees, T)
+//!  - degrees operator*(T, degrees)
+//!  - degrees operator/(degrees, T)
 template<class T>
-degrees(T) -> degrees<make_real_t<T>>;
+class degrees
+#ifndef MTK_DOXYGEN
+	: public impl_core::angle_base<T, degrees<T>>
+#endif
+{
+	static_assert(std::is_floating_point_v<T>);
+public:
+	//! Typedef.
+	using value_type = T;
+
+	//! Initializes to zero.
+	constexpr
+	degrees() noexcept :
+		m_value()
+	{ }
+
+	//! Initializes to value degrees.
+	explicit constexpr
+	degrees(T value) noexcept :
+		m_value(value)
+	{ }
+
+	//! Returns the current value.
+	explicit constexpr
+	operator T() const noexcept { return m_value; }
+
+	//! Returns the current value.
+	constexpr
+	const T&
+	value() const noexcept { return m_value; }
+
+	//! Returns the current value.
+	constexpr
+	T&
+	value() noexcept { return m_value; }
+
+private:
+	T m_value;
+};
 
 //! @brief Deduction guide.
 //! @relates radians
 template<class T>
 radians(T) -> radians<make_real_t<T>>;
+
+//! @brief Deduction guide.
+//! @relates degrees
+template<class T>
+degrees(T) -> degrees<make_real_t<T>>;
 
 
 
