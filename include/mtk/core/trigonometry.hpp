@@ -187,6 +187,15 @@ operator/(const angle_base<T, D>& lhs, typename D::value_type rhs) noexcept
 	return cp;
 }
 
+template<class T
+	,class D>
+constexpr
+T
+operator/(const angle_base<T, D>& lhs, const angle_base<T, D>& rhs) noexcept
+{
+	return (static_cast<const D&>(lhs).value() / static_cast<const D&>(rhs).value());
+}
+
 } // namespace impl_core
 
 
@@ -213,6 +222,7 @@ operator/(const angle_base<T, D>& lhs, typename D::value_type rhs) noexcept
 //!  - radians operator*(radians, T)
 //!  - radians operator*(T, radians)
 //!  - radians operator/(radians, T)
+//!  - T operator/(radians, radians)
 template<class T>
 class radians
 #ifndef MTK_DOXYGEN
@@ -223,6 +233,11 @@ class radians
 public:
 	//! Typedef.
 	using value_type = T;
+
+	//! The primary branch cut.
+	static constexpr
+	T
+	period = T(2)*math::pi<T>;
 
 	//! Initializes to zero.
 	constexpr
@@ -276,6 +291,7 @@ private:
 //!  - degrees operator*(degrees, T)
 //!  - degrees operator*(T, degrees)
 //!  - degrees operator/(degrees, T)
+//!  - T operator(degrees, degrees)
 template<class T>
 class degrees
 #ifndef MTK_DOXYGEN
@@ -286,6 +302,11 @@ class degrees
 public:
 	//! Typedef.
 	using value_type = T;
+
+	//! The primary branch cut.
+	static constexpr
+	T
+	period = T(360);
 
 	//! Initializes to zero.
 	constexpr
