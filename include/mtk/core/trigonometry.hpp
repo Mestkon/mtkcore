@@ -196,6 +196,22 @@ operator/(const angle_base<T, D>& lhs, const angle_base<T, D>& rhs) noexcept
 	return (static_cast<const D&>(lhs).value() / static_cast<const D&>(rhs).value());
 }
 
+
+
+template<class T
+	,class = void>
+struct is_angle_type : std::false_type { };
+
+template<class T
+	,class D>
+struct is_angle_type<angle_base<T, D>, void> : std::false_type { };
+
+template<class T>
+struct is_angle_type<T
+	,std::void_t<
+		require<std::is_base_of_v<angle_base<typename T::value_type, T>, T>>
+	>> : std::true_type { };
+
 } // namespace impl_core
 
 
@@ -350,122 +366,136 @@ degrees(T) -> degrees<make_real_t<T>>;
 
 
 
-//! Converts degrees to radians.
+//! @brief Converts angle to radians.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+radians<typename T::value_type>
+to_radians(T angle)
+{
+	constexpr auto fac = radians<typename T::value_type>::period / T::period;
+	return radians<typename T::value_type>(angle.value()*fac);
+}
+
 template<class T>
 constexpr
 radians<T>
-to_radians(degrees<T> degs) noexcept
+to_radians(radians<T> rads) noexcept
 {
-	constexpr T fac = math::pi<T> / T(180);
-	return radians<T>{degs.value()*fac};
+	return rads;
 }
 
-//! Converts radians to degrees.
+//! @brief Converts angle to degrees.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+degrees<typename T::value_type>
+to_degrees(T angle)
+{
+	constexpr auto fac = degrees<typename T::value_type>::period / T::period;
+	return degrees<typename T::value_type>(angle.value()*fac);
+}
+
 template<class T>
 constexpr
 degrees<T>
-to_degrees(radians<T> rads) noexcept
+to_degrees(degrees<T> degs) noexcept
 {
-	constexpr T fac = T(180) / math::pi<T>;
-	return degrees<T>{rads.value()*fac};
+	return degs;
 }
 
 
 
-//! Returns the sine of rads.
-template<class T>
-T
-sin(radians<T> rads)
+//! @brief Returns the sine of angle.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+typename T::value_type
+sin(T angle)
 {
-	return std::sin(rads.value());
+	return std::sin(mtk::to_radians(angle).value());
 }
 
-//! Returns the sine of degs.
-template<class T>
-T
-sin(degrees<T> degs)
+//! @brief Returns the cosine of angle.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+typename T::value_type
+cos(T angle)
 {
-	return mtk::sin(mtk::to_radians(degs));
+	return std::cos(mtk::to_radians(angle).value());
 }
 
-//! Returns the cosine of rads.
-template<class T>
-T
-cos(radians<T> rads)
+//! @brief Returns the tangent of angle.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+typename T::value_type
+tan(T angle)
 {
-	return std::cos(rads.value());
+	return std::tan(mtk::to_radians(angle).value());
 }
 
-//! Returns the cosine of degs.
-template<class T>
-T
-cos(degrees<T> degs)
+//! @brief Returns the cosecant of angle.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+typename T::value_type
+csc(T angle)
 {
-	return mtk::cos(mtk::to_radians(degs));
+	return typename T::value_type(1) / mtk::sin(angle);
 }
 
-//! Returns the tangent of rads.
-template<class T>
-T
-tan(radians<T> rads)
+//! @brief Returns the secant of angle.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+typename T::value_type
+sec(T angle)
 {
-	return std::tan(rads.value());
+	return typename T::value_type(1) / mtk::cos(angle);
 }
 
-//! Returns the tangent of degs.
-template<class T>
-T
-tan(degrees<T> degs)
+//! @brief Returns the cotangent of angle.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+typename T::value_type
+cot(T angle)
 {
-	return mtk::tan(mtk::to_radians(degs));
-}
-
-//! Returns the cosecant of rads.
-template<class T>
-T
-csc(radians<T> rads)
-{
-	return T(1) / mtk::sin(rads);
-}
-
-//! Returns the cosecant of degs.
-template<class T>
-T
-csc(degrees<T> degs)
-{
-	return mtk::csc(mtk::to_radians(degs));
-}
-
-//! Returns the secant of rads.
-template<class T>
-T
-sec(radians<T> rads)
-{
-	return T(1) / mtk::cos(rads);
-}
-
-//! Returns the secant of degs.
-template<class T>
-T
-sec(degrees<T> degs)
-{
-	return mtk::sec(mtk::to_radians(degs));
-}
-
-//! Returns the cotangent of rads.
-template<class T>
-T
-cot(radians<T> rads)
-{
-	return T(1) / mtk::tan(rads);
-}
-
-//! Returns the cotangent of degs.
-template<class T>
-T
-cot(degrees<T> degs)
-{
-	return mtk::cot(mtk::to_radians(degs));
+	return typename T::value_type(1) / mtk::tan(angle);
 }
 
 
