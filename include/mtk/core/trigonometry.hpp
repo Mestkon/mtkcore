@@ -212,6 +212,20 @@ struct is_angle_type<T
 		require<std::is_base_of_v<angle_base<typename T::value_type, T>, T>>
 	>> : std::true_type { };
 
+template<class To
+	,class From>
+constexpr
+To
+convert_angle(From angle) noexcept
+{
+	if constexpr (std::is_same_v<From, To>) {
+		return angle;
+	} else {
+		constexpr auto fac = To::period / From::period;
+		return To(angle.value()*fac);
+	}
+}
+
 } // namespace impl_core
 
 
@@ -377,16 +391,7 @@ template<class T
 radians<typename T::value_type>
 to_radians(T angle)
 {
-	constexpr auto fac = radians<typename T::value_type>::period / T::period;
-	return radians<typename T::value_type>(angle.value()*fac);
-}
-
-template<class T>
-constexpr
-radians<T>
-to_radians(radians<T> rads) noexcept
-{
-	return rads;
+	return mtk::impl_core::convert_angle<radians<typename T::value_type>>(angle);
 }
 
 //! @brief Converts angle to degrees.
@@ -400,16 +405,7 @@ template<class T
 degrees<typename T::value_type>
 to_degrees(T angle)
 {
-	constexpr auto fac = degrees<typename T::value_type>::period / T::period;
-	return degrees<typename T::value_type>(angle.value()*fac);
-}
-
-template<class T>
-constexpr
-degrees<T>
-to_degrees(degrees<T> degs) noexcept
-{
-	return degs;
+	return mtk::impl_core::convert_angle<degrees<typename T::value_type>>(angle);
 }
 
 
