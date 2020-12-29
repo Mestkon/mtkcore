@@ -24,6 +24,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     core/result.cpp
     core/saturated_integer.cpp
     core/scope_guard.cpp
+    core/trigonometry.cpp
     core/type_traits.cpp
     core/types.cpp
 )
