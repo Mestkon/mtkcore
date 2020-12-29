@@ -9,6 +9,9 @@
 #include <mtk/core/types.hpp>
 #include <mtk/core/type_traits.hpp>
 
+#include <limits>
+#include <type_traits>
+
 namespace mtk {
 
 //! @defgroup sat_int mtk/core/saturated_integer.hpp

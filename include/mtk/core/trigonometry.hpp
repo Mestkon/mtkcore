@@ -8,6 +8,8 @@
 #include <mtk/core/math.hpp>
 #include <mtk/core/type_traits.hpp>
 
+#include <type_traits>
+
 namespace mtk {
 
 //! @defgroup trig mtk/core/trigonometry.hpp

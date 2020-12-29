@@ -6,6 +6,8 @@
 
 #include <mtk/core/types.hpp>
 
+#include <type_traits>
+
 namespace mtk {
 
 //! @defgroup type_traits mtk/core/type_traits.hpp

@@ -7,6 +7,7 @@
 #include <mtk/core/types.hpp>
 
 #include <memory>
+#include <type_traits>
 #include <utility>
 
 namespace mtk {

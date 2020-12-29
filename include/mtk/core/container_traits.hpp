@@ -8,6 +8,10 @@
 #include <mtk/core/casts.hpp>
 #include <mtk/core/iterator_traits.hpp>
 
+#include <iterator>
+#include <type_traits>
+#include <utility>
+
 namespace mtk {
 
 //! @defgroup container_traits mtk/core/container_traits.hpp

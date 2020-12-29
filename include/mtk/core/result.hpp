@@ -8,6 +8,7 @@
 #include <mtk/core/types.hpp>
 
 #include <exception>
+#include <type_traits>
 #include <utility>
 #include <variant>
 
