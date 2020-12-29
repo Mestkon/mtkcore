@@ -574,14 +574,7 @@ template<class T>
 radians<make_real_t<T>>
 acot(T value)
 {
-        using U = make_real_t<T>;
-        constexpr auto term = math::pi<U> / U(2);
-        if (value == T())
-			return radians<U>();
-        else if (value > T())
-			return (radians<U>(term) - mtk::atan(U(1) / value));
-		else
-			return (radians<U>(-term) - mtk::atan(U(1) / value));
+    return mtk::atan(T(1) / value);
 }
 
 //! @}
