@@ -8,8 +8,6 @@
 #include <mtk/core/math.hpp>
 #include <mtk/core/type_traits.hpp>
 
-#include <cmath>
-
 namespace mtk {
 
 //! @defgroup trig mtk/core/trigonometry.hpp
@@ -226,6 +224,30 @@ convert_angle(From angle) noexcept
 	}
 }
 
+
+
+float sin(float val);
+double sin(double val);
+ldouble sin(ldouble val);
+float cos(float val);
+double cos(double val);
+ldouble cos(ldouble val);
+float tan(float val);
+double tan(double val);
+ldouble tan(ldouble val);
+float asin(float val);
+double asin(double val);
+ldouble asin(ldouble val);
+float acos(float val);
+double acos(double val);
+ldouble acos(ldouble val);
+float atan(float val);
+double atan(double val);
+ldouble atan(ldouble val);
+float atan2(float y, float x);
+double atan2(double y, double x);
+ldouble atan2(ldouble y, ldouble x);
+
 } // namespace impl_core
 
 
@@ -421,7 +443,7 @@ template<class T
 typename T::value_type
 sin(T angle)
 {
-	return std::sin(mtk::to_radians(angle).value());
+	return mtk::impl_core::sin(mtk::to_radians(angle).value());
 }
 
 //! @brief Returns the cosine of angle.
@@ -435,7 +457,7 @@ template<class T
 typename T::value_type
 cos(T angle)
 {
-	return std::cos(mtk::to_radians(angle).value());
+	return mtk::impl_core::cos(mtk::to_radians(angle).value());
 }
 
 //! @brief Returns the tangent of angle.
@@ -449,7 +471,7 @@ template<class T
 typename T::value_type
 tan(T angle)
 {
-	return std::tan(mtk::to_radians(angle).value());
+	return mtk::impl_core::tan(mtk::to_radians(angle).value());
 }
 
 //! @brief Returns the cosecant of angle.
@@ -507,7 +529,7 @@ asin(T value)
 	if constexpr (std::is_signed_v<T>)
 		MTK_IMPL_LIB_ASSERT(value >= T(-1));
 	MTK_IMPL_LIB_ASSERT(value <= T(1));
-	return radians<make_real_t<T>>(std::asin(value));
+	return radians<make_real_t<T>>(mtk::impl_core::asin(value));
 }
 
 //! @brief Returns the arccosine of value.
@@ -521,7 +543,7 @@ acos(T value)
 	if constexpr (std::is_signed_v<T>)
 		MTK_IMPL_LIB_ASSERT(value >= T(-1));
 	MTK_IMPL_LIB_ASSERT(value <= T(1));
-	return radians<make_real_t<T>>(std::acos(value));
+	return radians<make_real_t<T>>(mtk::impl_core::acos(value));
 }
 
 //! @brief Returns the arctangent of value.
@@ -531,7 +553,7 @@ template<class T>
 radians<make_real_t<T>>
 atan(T value)
 {
-	return radians<make_real_t<T>>(std::atan(value));
+	return radians<make_real_t<T>>(mtk::impl_core::atan(value));
 }
 
 //! @brief Returns the arctangent of y/x using the signs to
@@ -542,7 +564,7 @@ template<class T>
 radians<make_real_t<T>>
 atan2(T y, T x)
 {
-	return radians<make_real_t<T>>(std::atan2(y, x));
+	return radians<make_real_t<T>>(mtk::impl_core::atan2(y, x));
 }
 
 //! @brief Returns the arccosecant of value.

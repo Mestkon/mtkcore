@@ -38,6 +38,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/mtk/core/math.inl
     src/mtk/core/result.inl
     src/mtk/core/scope_guard.inl
+    src/mtk/core/trigonometry.inl
 )
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE

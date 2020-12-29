@@ -6,5 +6,6 @@
 #include <../src/mtk/core/math.inl>
 #include <../src/mtk/core/result.inl>
 #include <../src/mtk/core/scope_guard.inl>
+#include <../src/mtk/core/trigonometry.inl>
 
 #endif
