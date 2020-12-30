@@ -90,8 +90,7 @@ matrix_determinant(const Mat& m)
 
 template<class Mat>
 auto
-matrix_inverse2(const Mat& m, bool& ok,
-	make_real_t<typename Mat::value_type> ep = std::numeric_limits<make_real_t<typename Mat::value_type>>::epsilon()) noexcept
+matrix_inverse2(const Mat& m, bool& ok, typename Mat::value_type ep) noexcept
 {
 	using value_type = std::conditional_t<std::is_integral_v<typename Mat::value_type>,
 		make_real_t<typename Mat::value_type>,
@@ -100,7 +99,7 @@ matrix_inverse2(const Mat& m, bool& ok,
 	using ret_mat = typename matrix_traits<Mat>::template rebind<value_type, 2, 2, Mat::options>;
 	const auto det = impl_linalg::matrix_determinant2(m);
 
-	ok = (std::abs(det) >= ep);
+	ok = (std::abs(det) > ep);
 	if (!ok) {
 		return ret_mat();
 	}
@@ -117,8 +116,7 @@ matrix_inverse2(const Mat& m, bool& ok,
 
 template<class Mat>
 auto
-matrix_inverse3(const Mat& m, bool& ok,
-	make_real_t<typename Mat::value_type> ep = std::numeric_limits<make_real_t<typename Mat::value_type>>::epsilon()) noexcept
+matrix_inverse3(const Mat& m, bool& ok, typename Mat::value_type ep) noexcept
 {
 	using value_type = std::conditional_t<std::is_integral_v<typename Mat::value_type>,
 		make_real_t<typename Mat::value_type>,
@@ -132,7 +130,7 @@ matrix_inverse3(const Mat& m, bool& ok,
 
 	const auto det = m.value(0, 0)*c1 + m.value(0, 1)*c2 + m.value(0, 2)*c0;
 
-	ok = (std::abs(det) >= ep);
+	ok = (std::abs(det) > ep);
 	if (!ok) {
 		return ret_mat();
 	}
@@ -154,8 +152,7 @@ matrix_inverse3(const Mat& m, bool& ok,
 
 template<class Mat>
 auto
-matrix_inverse4(const Mat& m, bool& ok,
-	make_real_t<typename Mat::value_type> ep = std::numeric_limits<make_real_t<typename Mat::value_type>>::epsilon()) noexcept
+matrix_inverse4(const Mat& m, bool& ok, typename Mat::value_type ep) noexcept
 {
 	using value_type = std::conditional_t<std::is_integral_v<typename Mat::value_type>,
 		make_real_t<typename Mat::value_type>,
@@ -179,7 +176,7 @@ matrix_inverse4(const Mat& m, bool& ok,
 
 	const auto det = s0*c5 - s1*c4 + s2*c3 + s3*c2 - s4*c1 + s5*c0;
 
-	ok = (std::abs(det) >= ep);
+	ok = (std::abs(det) > ep);
 	if (!ok) {
 		return ret_mat();
 	}
@@ -208,16 +205,16 @@ matrix_inverse4(const Mat& m, bool& ok,
 
 template<class Mat>
 auto
-matrix_inverse(const Mat& m)
+matrix_inverse(const Mat& m, typename Mat::value_type ep)
 {
 	constexpr auto dim = std::decay_t<Mat>::dimension;
-	const auto inverse = [&m](bool &ok) {
+	const auto inverse = [&m, ep](bool &ok) {
 		if constexpr (dim == 2)
-			return impl_linalg::matrix_inverse2(m, ok);
+			return impl_linalg::matrix_inverse2(m, ok, ep);
 		else if constexpr (dim == 3)
-			return impl_linalg::matrix_inverse3(m, ok);
+			return impl_linalg::matrix_inverse3(m, ok, ep);
 		else if constexpr (dim == 4)
-			return impl_linalg::matrix_inverse4(m, ok);
+			return impl_linalg::matrix_inverse4(m, ok, ep);
 		else
 			MTK_ASSERT(false);
 	};
