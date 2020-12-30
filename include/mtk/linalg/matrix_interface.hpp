@@ -379,9 +379,9 @@ public:
 			if constexpr ((row_dimension == dynamic_dimension) && (column_dimension == dynamic_dimension))
 				return mat(this->columns(), this->rows());
 			else if constexpr (row_dimension == dynamic_dimension)
-				return mat(this->columns());
-			else if constexpr (column_dimension == dynamic_dimension)
 				return mat(this->rows());
+			else if constexpr (column_dimension == dynamic_dimension)
+				return mat(this->columns());
 			else
 				return mat();
 		};
