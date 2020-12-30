@@ -18,16 +18,24 @@ namespace impl_linalg {
 template<class Derived>
 struct matrix_no_det_or_inv { };
 template<class Derived>
-struct matrix_det_and_inv
+struct matrix_only_det
 {
 	constexpr auto determinant() const { return impl_linalg::matrix_determinant(static_cast<const Derived&>(*this)); }
-	auto inverted() const { return impl_linalg::matrix_inverse(static_cast<const Derived&>(*this)); }
-	auto invert()
+};
+template<class Derived>
+struct matrix_det_and_inv :
+	matrix_only_det<Derived>
+{
+	using _ep_type = typename matrix_traits<Derived>::value_type;
+
+	auto inverted(_ep_type ep = std::numeric_limits<_ep_type>::epsilon()) const { return impl_linalg::matrix_inverse(static_cast<const Derived&>(*this), ep); }
+	auto invert(_ep_type ep = std::numeric_limits<_ep_type>::epsilon())
 	{
-		auto inv = this->inverted();
+		auto inv = this->inverted(ep);
 		MTK_IMPL_LIB_ASSERT(inv);
 		static_cast<Derived&>(*this) = std::move(*inv);
 	}
+	bool is_invertible(_ep_type ep = std::numeric_limits<_ep_type>::epsilon()) const { return (std::abs(this->determinant()) > ep); }
 };
 template<class Derived>
 struct matrix_sqiface_base
@@ -37,7 +45,9 @@ struct matrix_sqiface_base
 	static constexpr auto dim = matrix_traits<Derived>::row_dimension;
 	static constexpr bool is_complex = std::is_same_v<value_type, std::complex<make_real_t<value_type>>>;
 	using type = std::conditional_t<(dim >= 2) && (dim <= 4) && !is_complex,
-		matrix_det_and_inv<Derived>,
+		std::conditional_t<std::is_floating_point_v<value_type>,
+			matrix_det_and_inv<Derived>,
+			matrix_only_det<Derived>>,
 		matrix_no_det_or_inv<Derived>>;
 };
 } // namespace impl_linalg
@@ -253,21 +263,35 @@ public:
 	determinant() const;
 
 	//! @brief Returns the inverse of the matrix if it exists, else
-	//! std::nullopt
+	//! std::nullopt.
 	//!
-	//! @note This function is only available for non-complex square matrices with
+	//! The matrix is invertible if the absolute value of the determinant
+	//! is larger than the given epsilon.
+	//!
+	//! @note This function is only available for floating-point square matrices with
 	//! dimensions 2, 3, and 4.
 	std::optional<matrix<value_type, dimension, dimension, options>>
-	inverted() const;
+	inverted(value_type ep = std::numeric_limits<value_type>::epsilon()) const;
 
 	//! @brief Sets the matrix to its inverse.
 	//!
-	//! @note This function is only available for non-complex square matrices with
+	//! @note This function is only available for floating-point square matrices with
 	//! dimensions 2, 3, and 4.
 	//!
 	//! @pre The matrix must be invertible.
+	//!
+	//! @note The matrix is invertible if the absolute value of the determinant
+	//! is larger than the given epsilon.
 	void
-	invert();
+	invert(value_type ep = std::numeric_limits<value_type>::epsilon());
+
+	//! @brief Returns true if the absolute value of the determinant is
+	//! larger than epsilon, else false.
+	//!
+	//! @note This function is only available for floating-point square matrices with
+	//! dimensions 2, 3, and 4.
+	bool
+	is_invertible(value_type ep = std::numeric_limits<value_type>::epsilon()) const;
 #endif
 };
 
