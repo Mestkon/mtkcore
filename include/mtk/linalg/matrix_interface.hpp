@@ -415,7 +415,8 @@ protected:
 		}
 	}
 
-	template<class Iter>
+	template<class Iter
+		,require<is_iterator_v<Iter>> = 0>
 	constexpr
 	void
 	_raw_assign(Iter first)

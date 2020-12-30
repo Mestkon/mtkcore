@@ -348,7 +348,7 @@ public:
 	}
 
 	matrix(const matrix& other) :
-		matrix(other.m_rows)
+		matrix(other.m_cols)
 	{
 		this->_raw_assign(other);
 	}
