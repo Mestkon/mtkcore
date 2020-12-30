@@ -28,3 +28,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     core/type_traits.cpp
     core/types.cpp
 )
+
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    linalg/matrix.cpp
+)
