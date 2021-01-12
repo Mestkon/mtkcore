@@ -2,6 +2,8 @@
 
 #include <mtk/core/casts.hpp>
 
+#include <memory>
+
 using namespace mtk;
 
 void overload() { }
@@ -133,4 +135,23 @@ TEST_CASE("core/casts: overload_cast selects the correct overload", "[core]")
 
 	auto ptr_t5 = overload_cast<int(float)>(&test::overload);
 	REQUIRE(ptr_t5 == static_cast<int(test::*)(float) const>(&test::overload));
+}
+
+TEST_CASE("core/casts: addressof is equivalent to std::addressof", "[core]")
+{
+	int i = 0;
+	const float f = 0.0f;
+	volatile void* p = nullptr;
+	const volatile bool b = false;
+
+	struct A1 { } a1;
+	struct A2 { const A2* operator&() const { return nullptr; } } a2;
+
+	REQUIRE(mtk::addressof(i) == std::addressof(i));
+	REQUIRE(mtk::addressof(f) == std::addressof(f));
+	REQUIRE(mtk::addressof(p) == std::addressof(p));
+	REQUIRE(mtk::addressof(b) == std::addressof(b));
+	REQUIRE(mtk::addressof(a1) == std::addressof(a1));
+	REQUIRE(mtk::addressof(a2) == std::addressof(a2));
+	REQUIRE(mtk::addressof(a2) != &a2);
 }

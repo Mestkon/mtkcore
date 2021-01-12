@@ -197,6 +197,20 @@ overload_cast(typename impl_core::const_function<Func>::type T::* const & ptr) n
 
 } // namespace casts
 
+
+
+//! @brief Returns the address of the given object. Equivalent to std::addressof.
+//!
+//! An alternative to std::addressof if one consider <memory> too large for
+//! only std::addressof.
+template<class T>
+T*
+addressof(T& ref) noexcept
+{
+	using byte_type = copy_cv_t<byte, T>;
+	return reinterpret_cast<T*>(&reinterpret_cast<byte_type&>(ref));
+}
+
 //! @}
 
 } // namespace mtk
