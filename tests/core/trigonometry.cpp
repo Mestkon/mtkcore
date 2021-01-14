@@ -341,6 +341,44 @@ TEST_CASE("core/trigonometry: trig functions return the correct value", "[core]"
 	REQUIRE(cot(-deg_five_eighths) == Approx(-1));
 }
 
+TEST_CASE("core/trigonometry: sincos returns sine and cosine", "[core]")
+{
+	{
+		auto [s0, c0] = sincos(rad_zero);
+		REQUIRE(s0 == Approx(mtk::sin(rad_zero)));
+		REQUIRE(c0 == Approx(mtk::cos(rad_zero)));
+		auto [s1, c1] = sincos(rad_half);
+		REQUIRE(s1 == Approx(mtk::sin(rad_half)));
+		REQUIRE(c1 == Approx(mtk::cos(rad_half)));
+		auto [s2, c2] = sincos(rad_one_fourths);
+		REQUIRE(s2 == Approx(mtk::sin(rad_one_fourths)));
+		REQUIRE(c2 == Approx(mtk::cos(rad_one_fourths)));
+		auto [s3, c3] = sincos(rad_three_fourths);
+		REQUIRE(s3 == Approx(mtk::sin(rad_three_fourths)));
+		REQUIRE(c3 == Approx(mtk::cos(rad_three_fourths)));
+		auto [s4, c4] = sincos(rad_five_eighths);
+		REQUIRE(s4 == Approx(mtk::sin(rad_five_eighths)));
+		REQUIRE(c4 == Approx(mtk::cos(rad_five_eighths)));
+	}
+	{
+		auto [s0, c0] = sincos(deg_zero);
+		REQUIRE(s0 == Approx(mtk::sin(deg_zero)));
+		REQUIRE(c0 == Approx(mtk::cos(deg_zero)));
+		auto [s1, c1] = sincos(deg_half);
+		REQUIRE(s1 == Approx(mtk::sin(deg_half)));
+		REQUIRE(c1 == Approx(mtk::cos(deg_half)));
+		auto [s2, c2] = sincos(deg_one_fourths);
+		REQUIRE(s2 == Approx(mtk::sin(deg_one_fourths)));
+		REQUIRE(c2 == Approx(mtk::cos(deg_one_fourths)));
+		auto [s3, c3] = sincos(deg_three_fourths);
+		REQUIRE(s3 == Approx(mtk::sin(deg_three_fourths)));
+		REQUIRE(c3 == Approx(mtk::cos(deg_three_fourths)));
+		auto [s4, c4] = sincos(deg_five_eighths);
+		REQUIRE(s4 == Approx(mtk::sin(deg_five_eighths)));
+		REQUIRE(c4 == Approx(mtk::cos(deg_five_eighths)));
+	}
+}
+
 TEST_CASE("core/trigonometry: inverse trig functions return the correct value", "[core]")
 {
 	REQUIRE(mtk::asin(mtk::sin(rad_zero)) == Approx(rad_zero));

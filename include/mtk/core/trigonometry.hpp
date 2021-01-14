@@ -8,6 +8,7 @@
 #include <mtk/core/math.hpp>
 #include <mtk/core/type_traits.hpp>
 
+#include <utility>
 #include <type_traits>
 
 namespace mtk {
@@ -16,7 +17,6 @@ namespace mtk {
 //! @{
 
 namespace impl_core {
-
 template<class T
 	,class Derived>
 class angle_base
@@ -237,6 +237,11 @@ ldouble cos(ldouble val);
 float tan(float val);
 double tan(double val);
 ldouble tan(ldouble val);
+
+std::pair<float, float> sincos(float val);
+std::pair<double, double> sincos(double val);
+std::pair<ldouble, ldouble> sincos(ldouble val);
+
 float asin(float val);
 double asin(double val);
 ldouble asin(ldouble val);
@@ -517,6 +522,24 @@ cot(T angle)
 {
 	return typename T::value_type(1) / mtk::tan(angle);
 }
+
+//! @brief Returns the sine and cosine of angle.
+//!
+//! The first value returned is the sine,
+//! the second is the cosine.
+//!
+//! @pre T must be an angle type.
+template<class T
+#ifndef MTK_DOXYGEN
+	,require<mtk::impl_core::is_angle_type<T>::value> = 0
+#endif
+>
+std::pair<typename T::value_type, typename T::value_type>
+sincos(T angle)
+{
+	return mtk::impl_core::sincos(mtk::to_radians(angle).value());
+}
+
 
 
 

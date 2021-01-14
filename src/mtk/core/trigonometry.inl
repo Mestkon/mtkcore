@@ -1,6 +1,7 @@
 #include <mtk/core/trigonometry.hpp>
 
 #include <cmath>
+#include <math.h>
 
 namespace mtk {
 namespace impl_core {
@@ -13,6 +14,27 @@ template<class T>
 T cos_impl(T val) { return std::cos(val); }
 template<class T>
 T tan_impl(T val) { return std::tan(val); }
+
+template<class T>
+std::pair<T, T> sincos_impl(T val)
+{
+#ifdef __GNUC__
+	T s;
+	T c;
+	if constexpr (std::is_same_v<T, float>)
+		::sincosf(val, &s, &c);
+	else if constexpr (std::is_same_v<T, double>)
+		::sincos(val, &s, &c);
+	else
+		::sincosl(val, &s, &c);
+
+#else
+	const T s = std::sin(val);
+	const T c = std::cos(val);
+#endif
+	return std::make_pair(s, c);
+}
+
 template<class T>
 T asin_impl(T val) { return std::asin(val); }
 template<class T>
@@ -70,6 +92,21 @@ double tan(double val)
 ldouble tan(ldouble val)
 {
 	return core_trigonometry::tan_impl(val);
+}
+
+std::pair<float, float> sincos(float val)
+{
+	return core_trigonometry::sincos_impl(val);
+}
+
+std::pair<double, double> sincos(double val)
+{
+	return core_trigonometry::sincos_impl(val);
+}
+
+std::pair<ldouble, ldouble> sincos(ldouble val)
+{
+	return core_trigonometry::sincos_impl(val);
 }
 
 float asin(float val)
