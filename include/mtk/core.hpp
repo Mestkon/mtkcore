@@ -18,6 +18,7 @@
 #include <mtk/core/scope_guard.hpp>
 #include <mtk/core/trigonometry.hpp>
 #include <mtk/core/type_traits.hpp>
+#include <mtk/core/typepun_cast.hpp>
 #include <mtk/core/types.hpp>
 
 //! @brief Everything in mtkcore is contained
