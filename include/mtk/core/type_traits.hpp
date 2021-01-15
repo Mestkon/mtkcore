@@ -290,6 +290,32 @@ struct promote
 template<class T>
 using promote_t = typename promote<T>::type;
 
+
+
+//! @brief Contains the member constant value equal to false.
+//!
+//! Can be used with static_assert in undesirable branches.
+//!
+//! @code
+//! template<class T>
+//! T function_doing_stuff_based_on_type(T t) {
+//!     if constexpr (std::is_same_v<T, int>) {
+//!	        return t + 1;
+//!     } else if constexpr (std::is_same_v<T, float>) {
+//!         return t + 42;
+//!     } else {
+//!         static_assert(mtk::always_false<T>::value, "Wrong type");
+//!     }
+//! }
+//! @endcode
+template<class T>
+struct always_false : std::false_type { };
+
+template<class T>
+inline constexpr
+bool
+always_false_v = always_false<T>::value;
+
 //! @}
 
 } // namespace mtk

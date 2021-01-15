@@ -40,3 +40,26 @@ TEST_CASE("core/type_traits: promote does the thing", "[core]")
 	REQUIRE(std::numeric_limits<pm_flt>::max() > std::numeric_limits<float>::max());
 }
 
+template<class T>
+T af_test_func(T t)
+{
+	if constexpr (std::is_integral_v<T>) {
+		return t;
+	} else {
+		static_assert(always_false_v<T>);
+	}
+}
+
+TEST_CASE("core/type_traits: always_false is actually false", "[core]")
+{
+	struct S { };
+
+	REQUIRE(always_false_v<int> == false);
+	REQUIRE(always_false_v<std::nullptr_t> == false);
+	REQUIRE(always_false_v<double> == false);
+	REQUIRE(always_false_v<S> == false);
+
+	REQUIRE(af_test_func(42) == 42);
+	REQUIRE(af_test_func(69LL) == 69LL);
+	REQUIRE(af_test_func('a') == 'a');
+}
