@@ -30,5 +30,10 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    linalg/matrix.cpp
+    linalg/matrix_defs.hpp
+
+    linalg/matrix_constructors_dynamic_types.cpp
+    linalg/matrix_constructors_shared.cpp
+    linalg/matrix_assignment_and_transposed.cpp
+    linalg/matrix_rows_cols.cpp
 )
