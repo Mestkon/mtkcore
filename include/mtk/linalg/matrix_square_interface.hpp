@@ -29,7 +29,7 @@ struct matrix_det_and_inv :
 	using _ep_type = typename matrix_traits<Derived>::value_type;
 
 	auto inverted(_ep_type ep = std::numeric_limits<_ep_type>::epsilon()) const { return impl_linalg::matrix_inverse(static_cast<const Derived&>(*this), ep); }
-	auto invert(_ep_type ep = std::numeric_limits<_ep_type>::epsilon())
+	void invert(_ep_type ep = std::numeric_limits<_ep_type>::epsilon())
 	{
 		auto inv = this->inverted(ep);
 		MTK_IMPL_LIB_ASSERT(inv);
