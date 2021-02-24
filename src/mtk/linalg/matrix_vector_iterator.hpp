@@ -268,7 +268,7 @@ private:
 	auto
 	_get_row() const
 	{
-		MTK_IMPL_LIB_ASSERT(m_idx < this->_rows());
+		MTK_PRECOND_LOW(m_idx < this->_rows());
 		if constexpr (!_is_column_major || _is_vector) {
 			const auto first = m_iter + m_idx*this->_cols();
 			return matrix_vector_reference<Iter, ConstIter, 1, C, Opt>(first, 1, this->_cols());
@@ -284,7 +284,7 @@ private:
 	auto
 	_get_col() const
 	{
-		MTK_IMPL_LIB_ASSERT(m_idx < this->_cols());
+		MTK_PRECOND_LOW(m_idx < this->_cols());
 		if constexpr (!_is_column_major && !_is_vector) {
 			const auto it = m_iter + m_idx;
 			const auto step = this->_cols();

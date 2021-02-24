@@ -226,7 +226,7 @@ public:
 	saturated_integer&
 	operator/=(saturated_integer& lhs, saturated_integer rhs) noexcept
 	{
-		MTK_IMPL_LIB_ASSERT(rhs.m_val != T());
+		MTK_PRECOND_LOW(rhs.m_val != T());
 
 		using U = promote_t<T>;
 		const auto new_val = static_cast<U>(lhs.m_val) / static_cast<U>(rhs.m_val);
@@ -256,7 +256,7 @@ public:
 	saturated_integer&
 	operator%=(saturated_integer& lhs, saturated_integer rhs) noexcept
 	{
-		MTK_IMPL_LIB_ASSERT(rhs.m_val != T());
+		MTK_PRECOND_LOW(rhs.m_val != T());
 
 		using U = promote_t<T>;
 		const auto new_val = static_cast<U>(lhs.m_val) % static_cast<U>(rhs.m_val);

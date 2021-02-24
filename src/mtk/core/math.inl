@@ -12,7 +12,7 @@ template<class T>
 T
 _factorial(T t) noexcept
 {
-	MTK_IMPL_LIB_ASSERT(t >= T());
+	MTK_PRECOND_LOW(t >= T());
 	return std::tgamma(t + T(1));
 }
 

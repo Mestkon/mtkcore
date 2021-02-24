@@ -32,7 +32,7 @@ struct matrix_det_and_inv :
 	void invert(_ep_type ep = std::numeric_limits<_ep_type>::epsilon())
 	{
 		auto inv = this->inverted(ep);
-		MTK_IMPL_LIB_ASSERT(inv);
+		MTK_PRECOND_LOW(inv);
 		static_cast<Derived&>(*this) = std::move(*inv);
 	}
 	bool is_invertible(_ep_type ep = std::numeric_limits<_ep_type>::epsilon()) const { return (std::abs(this->determinant()) > ep); }
@@ -95,7 +95,7 @@ public:
 	size_type
 	order() const
 	{
-		MTK_IMPL_LIB_ASSERT(this->rows() == this->columns());
+		MTK_PRECOND_LOW(this->rows() == this->columns());
 		if constexpr (row_dimension == dynamic_dimension)
 			return this->columns();
 		else

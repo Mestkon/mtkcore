@@ -552,8 +552,8 @@ radians<make_real_t<T>>
 asin(T value)
 {
 	if constexpr (std::is_signed_v<T>)
-		MTK_IMPL_LIB_ASSERT(value >= T(-1));
-	MTK_IMPL_LIB_ASSERT(value <= T(1));
+		MTK_PRECOND_LOW(value >= T(-1));
+	MTK_PRECOND_LOW(value <= T(1));
 	return radians<make_real_t<T>>(mtk::impl_core::asin(value));
 }
 
@@ -566,8 +566,8 @@ radians<make_real_t<T>>
 acos(T value)
 {
 	if constexpr (std::is_signed_v<T>)
-		MTK_IMPL_LIB_ASSERT(value >= T(-1));
-	MTK_IMPL_LIB_ASSERT(value <= T(1));
+		MTK_PRECOND_LOW(value >= T(-1));
+	MTK_PRECOND_LOW(value <= T(1));
 	return radians<make_real_t<T>>(mtk::impl_core::acos(value));
 }
 

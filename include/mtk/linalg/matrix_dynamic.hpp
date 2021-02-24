@@ -117,7 +117,7 @@ public:
 	matrix(size_t rows, size_t cols, std::initializer_list<Scalar> args) :
 		matrix(rows, cols)
 	{
-		MTK_IMPL_LIB_ASSERT(args.size() == rows*cols);
+		MTK_PRECOND_LOW(args.size() == rows*cols);
 		this->_raw_assign(args.begin());
 	}
 
@@ -138,7 +138,7 @@ public:
 	{
 		MTK_IGNORE(last);
 		if constexpr (is_forward_iterator_v<InputIter>)
-			MTK_IMPL_LIB_ASSERT(std::distance(first, last) == rows*cols);
+			MTK_PRECOND_LOW(std::distance(first, last) == rows*cols);
 
 		this->_raw_assign(first);
 	}

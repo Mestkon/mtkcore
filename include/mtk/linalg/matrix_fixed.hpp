@@ -187,7 +187,7 @@ public:
 	{
 		MTK_IGNORE(last);
 		if constexpr (is_forward_iterator_v<InputIter>)
-			MTK_IMPL_LIB_ASSERT(std::distance(first, last) == Rows*Columns);
+			MTK_PRECOND_LOW(std::distance(first, last) == Rows*Columns);
 
 		this->_raw_assign(first);
 	}

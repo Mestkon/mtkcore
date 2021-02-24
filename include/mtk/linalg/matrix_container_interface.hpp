@@ -227,9 +227,9 @@ public:
 	swap(Other&& other)
 	{
 		if constexpr (row_dimension == dynamic_dimension)
-			MTK_IMPL_LIB_ASSERT(this->rows() == other.rows());
+			MTK_PRECOND_LOW(this->rows() == other.rows());
 		if constexpr (column_dimension == dynamic_dimension)
-			MTK_IMPL_LIB_ASSERT(this->columns() == other.columns());
+			MTK_PRECOND_LOW(this->columns() == other.columns());
 
 		using mat = matrix<value_type, row_dimension, column_dimension, options>;
 		mat tmp(std::move(static_cast<Derived&>(*this)));

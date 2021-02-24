@@ -21,7 +21,7 @@ struct vector_normalize
 	normalize()
 	{
 		auto& self = static_cast<Derived&>(*this);
-		MTK_IMPL_LIB_ASSERT(self.length() != decltype(self.length())());
+		MTK_PRECOND_LOW(self.length() != decltype(self.length())());
 		self /= self.length();
 	}
 };
@@ -220,7 +220,7 @@ public:
 	dot(const vector_interface<Other>& other) const
 	{
 		if constexpr (dimension == dynamic_dimension)
-			MTK_IMPL_LIB_ASSERT(this->size() == other.size());
+			MTK_PRECOND_LOW(this->size() == other.size());
 
 		value_type ret = { };
 		const auto end = this->end();

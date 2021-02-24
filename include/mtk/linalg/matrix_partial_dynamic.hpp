@@ -189,7 +189,7 @@ public:
 	matrix(std::initializer_list<Scalar> args) :
 		matrix(args.size() / Columns)
 	{
-		MTK_IMPL_LIB_ASSERT(args.size() == m_rows*Columns);
+		MTK_PRECOND_LOW(args.size() == m_rows*Columns);
 		this->_raw_assign(args.begin());
 	}
 
@@ -209,7 +209,7 @@ public:
 		matrix(std::distance(first, last) / Columns)
 	{
 		MTK_IGNORE(last);
-		MTK_IMPL_LIB_ASSERT(std::distance(first, last) == m_rows*Columns);
+		MTK_PRECOND_MED(std::distance(first, last) == m_rows*Columns);
 
 		this->_raw_assign(first);
 	}
@@ -322,7 +322,7 @@ public:
 	matrix(std::initializer_list<Scalar> args) :
 		matrix(args.size() / Rows)
 	{
-		MTK_IMPL_LIB_ASSERT(args.size() == m_cols*Rows);
+		MTK_PRECOND_LOW(args.size() == m_cols*Rows);
 		this->_raw_assign(args.begin());
 	}
 
@@ -342,7 +342,7 @@ public:
 		matrix(std::distance(first, last) / Rows)
 	{
 		MTK_IGNORE(last);
-		MTK_IMPL_LIB_ASSERT(std::distance(first, last) == m_cols*Rows);
+		MTK_PRECOND_MED(std::distance(first, last) == m_cols*Rows);
 
 		this->_raw_assign(first);
 	}

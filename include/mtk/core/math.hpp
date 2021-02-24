@@ -232,13 +232,13 @@ next_pow2(T t) noexcept
 {
 	//Not standard but works on any tangentially sensible implementation.
 	static_assert(std::numeric_limits<T>::radix == 2);
-	MTK_IMPL_LIB_ASSERT(t >= T());
+	MTK_PRECOND_LOW(t >= T());
 
 	constexpr auto bits = std::numeric_limits<T>::digits;
 
 	using u_t = std::make_unsigned_t<T>;
 	u_t v = static_cast<u_t>(t);
-	MTK_IMPL_LIB_ASSERT(v <= (u_t(1) << (bits - 1)));
+	MTK_PRECOND_LOW(v <= (u_t(1) << (bits - 1)));
 
 	--v;
 	for (int i = 1; i < bits; i <<= 1) {

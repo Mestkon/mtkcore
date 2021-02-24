@@ -206,7 +206,7 @@ public:
 	matrix_vector_reference&
 	operator=(const matrix_interface<Other>& rhs)
 	{
-		MTK_IMPL_LIB_ASSERT(this->size() == rhs.size());
+		MTK_PRECOND_LOW(this->size() == rhs.size());
 		const auto end = this->cend();
 		auto it = this->begin();
 		auto first = rhs.begin();
@@ -276,7 +276,7 @@ public:
 	matrix_vector_reference&
 	operator=(const matrix_interface<Other>& rhs)
 	{
-		MTK_IMPL_LIB_ASSERT(this->size() == rhs.size());
+		MTK_PRECOND_LOW(this->size() == rhs.size());
 		const auto end = this->cend();
 		auto it = this->begin();
 		auto first = rhs.begin();

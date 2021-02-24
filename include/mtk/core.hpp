@@ -31,6 +31,7 @@ namespace mtk {
 //!
 //! Take a look at the configuration macros:
 //! - @ref MTK_DEBUG
+//! - @ref MTK_PRECOND_LEVEL
 //! - @ref MTK_NO_LIB_ASSERTS
 //! - @ref MTK_GLOBAL_TYPES
 //! - @ref MTK_GLOBAL_CASTS

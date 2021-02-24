@@ -201,7 +201,7 @@ public:
 	auto
 	row(size_type idx)
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->rows());
+		MTK_PRECOND_LOW(idx < this->rows());
 		return *(this->begin_rows() + idx);
 	}
 
@@ -210,7 +210,7 @@ public:
 	auto
 	row(size_type idx) const
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->rows());
+		MTK_PRECOND_LOW(idx < this->rows());
 		return *(this->begin_rows() + idx);
 	}
 
@@ -221,7 +221,7 @@ public:
 	auto
 	column(size_type idx)
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->columns());
+		MTK_PRECOND_LOW(idx < this->columns());
 		return *(this->begin_columns() + idx);
 	}
 
@@ -230,7 +230,7 @@ public:
 	auto
 	column(size_type idx) const
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->columns());
+		MTK_PRECOND_LOW(idx < this->columns());
 		return *(this->begin_columns() + idx);
 	}
 
@@ -250,7 +250,7 @@ public:
 	auto
 	operator[](size_type idx)
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->rows());
+		MTK_PRECOND_LOW(idx < this->rows());
 		return *(this->begin_rows() + idx);
 	}
 
@@ -264,7 +264,7 @@ public:
 	auto
 	operator[](size_type idx) const
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->rows());
+		MTK_PRECOND_LOW(idx < this->rows());
 		return *(this->begin_rows() + idx);
 	}
 
@@ -276,7 +276,7 @@ public:
 	reference
 	operator[](size_type idx)
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->size());
+		MTK_PRECOND_LOW(idx < this->size());
 		return *(this->begin() + idx);
 	}
 
@@ -287,7 +287,7 @@ public:
 	const_reference
 	operator[](size_type idx) const
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->size());
+		MTK_PRECOND_LOW(idx < this->size());
 		return *(this->begin() + idx);
 	}
 #endif
@@ -301,8 +301,8 @@ public:
 	reference
 	value(size_type row, size_type col)
 	{
-		MTK_IMPL_LIB_ASSERT(row < this->rows());
-		MTK_IMPL_LIB_ASSERT(col < this->columns());
+		MTK_PRECOND_LOW(row < this->rows());
+		MTK_PRECOND_LOW(col < this->columns());
 		if constexpr (!_is_column_major)
 			return *(this->begin() + row*this->columns() + col);
 		else
@@ -314,8 +314,8 @@ public:
 	const_reference
 	value(size_type row, size_type col) const
 	{
-		MTK_IMPL_LIB_ASSERT(row < this->rows());
-		MTK_IMPL_LIB_ASSERT(col < this->columns());
+		MTK_PRECOND_LOW(row < this->rows());
+		MTK_PRECOND_LOW(col < this->columns());
 		if constexpr (!_is_column_major)
 			return *(this->begin() + row*this->columns() + col);
 		else
@@ -335,7 +335,7 @@ public:
 	reference
 	value(size_type idx)
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->size());
+		MTK_PRECOND_LOW(idx < this->size());
 		return *(this->begin() + idx);
 	}
 
@@ -348,7 +348,7 @@ public:
 	const_reference
 	value(size_type idx) const
 	{
-		MTK_IMPL_LIB_ASSERT(idx < this->size());
+		MTK_PRECOND_LOW(idx < this->size());
 		return *(this->begin() + idx);
 	}
 
@@ -550,9 +550,9 @@ Lhs&
 operator+=(matrix_interface<Lhs>& lhs, const matrix_interface<Rhs>& rhs)
 {
 	if constexpr (Lhs::row_dimension == dynamic_dimension)
-		MTK_IMPL_LIB_ASSERT(lhs.rows() == rhs.rows());
+		MTK_PRECOND_LOW(lhs.rows() == rhs.rows());
 	if constexpr (Lhs::column_dimension == dynamic_dimension)
-		MTK_IMPL_LIB_ASSERT(lhs.columns() == rhs.columns());
+		MTK_PRECOND_LOW(lhs.columns() == rhs.columns());
 
 	const auto [p1, p2] = impl_linalg::optimal_range(lhs, rhs);
 	const auto lhs_vec_end = p1.second;
@@ -629,9 +629,9 @@ Lhs&
 operator-=(matrix_interface<Lhs>& lhs, const matrix_interface<Rhs>& rhs)
 {
 	if constexpr (Lhs::row_dimension == dynamic_dimension)
-		MTK_IMPL_LIB_ASSERT(lhs.rows() == rhs.rows());
+		MTK_PRECOND_LOW(lhs.rows() == rhs.rows());
 	if constexpr (Lhs::column_dimension == dynamic_dimension)
-		MTK_IMPL_LIB_ASSERT(lhs.columns() == rhs.columns());
+		MTK_PRECOND_LOW(lhs.columns() == rhs.columns());
 
 	const auto [p1, p2] = impl_linalg::optimal_range(lhs, rhs);
 	const auto lhs_vec_end = p1.second;
@@ -843,7 +843,7 @@ operator*(const matrix_interface<Lhs>& lhs, const matrix_interface<Rhs>& rhs)
 	};
 
 	if constexpr (Lhs::row_dimension == dynamic_dimension)
-		MTK_IMPL_LIB_ASSERT(lhs.rows() == rhs.columns());
+		MTK_PRECOND_LOW(lhs.rows() == rhs.columns());
 
 	mat ret = create_mat(lhs.rows(), rhs.columns());
 

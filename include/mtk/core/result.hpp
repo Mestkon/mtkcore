@@ -86,7 +86,7 @@ public:
 	//!
 	//! @pre has_value() is false.
 	Error
-	error() const { MTK_IMPL_LIB_ASSERT(!*this); return std::get<0>(m_var); }
+	error() const { MTK_PRECOND_LOW(!*this); return std::get<0>(m_var); }
 
 
 
@@ -94,11 +94,11 @@ public:
 	//!
 	//! @pre has_value() is true.
 	T*
-	operator->() noexcept { MTK_IMPL_LIB_ASSERT(*this); return std::get_if<1>(&m_var); }
+	operator->() noexcept { MTK_PRECOND_LOW(*this); return std::get_if<1>(&m_var); }
 
 	//! @copydoc operator->()
 	const T*
-	operator->() const noexcept { MTK_IMPL_LIB_ASSERT(*this); return std::get_if<1>(&m_var); }
+	operator->() const noexcept { MTK_PRECOND_LOW(*this); return std::get_if<1>(&m_var); }
 
 	//! @brief Returns a reference to the current value.
 	//!
@@ -159,8 +159,8 @@ public:
 	value_or(U&& default_value) && { return bool(*this) ? std::move(**this) : static_cast<T>(std::forward<U>(default_value)); }
 
 private:
-	T& _value() { MTK_IMPL_LIB_ASSERT(*this); return std::get<1>(m_var); }
-	const T& _value() const { MTK_IMPL_LIB_ASSERT(*this); return std::get<1>(m_var); }
+	T& _value() { MTK_PRECOND_LOW(*this); return std::get<1>(m_var); }
+	const T& _value() const { MTK_PRECOND_LOW(*this); return std::get<1>(m_var); }
 	T& _safe_value() { if (!*this) impl_core::throw_bad_result_access(); return this->_value(); }
 	const T& _safe_value() const { if (!*this) impl_core::throw_bad_result_access(); return this->_value(); }
 
